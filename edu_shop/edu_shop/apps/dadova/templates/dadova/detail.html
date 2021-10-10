@@ -1,0 +1,228 @@
+{% extends 'dadova/base.html' %}
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block content %}
+
+<style type="text/css">
+	
+	.card-body-a {
+    	border: 2px solid rgb(247, 98, 98);
+    	color: rgb(247, 98, 98);
+    	background: none;
+    	text-decoration: none;
+    	padding: 10px;
+   		position: relative;
+    	left: 90px;
+    	top: 40px;
+	}
+
+	.card-body-a:hover {
+    	background: rgb(247, 98, 98);
+    	color: white;
+    	transition-duration: 1s;
+    	position: relative;
+	}
+
+	.div-list1 {
+		position: relative;
+		top: 2px;
+    	left: -60px;
+    	margin: 0px;
+    	height: 150px;
+	}
+
+	.div-list1 .dadova {
+		display: inline-block;
+    	margin-right: 5px;
+    	margin-bottom: 30px;
+    	padding-right: 10px;
+    	border: none;
+	}
+
+	.a {
+		color: rgb(255, 255, 255);
+		text-decoration: none;
+	}
+
+	.a:hover {
+		color: rgb(0, 0, 0);
+		transition-duration: 1s;
+	}
+
+	section {
+    	display: block;
+    	border: 2px solid rgb(247, 98, 98);
+    	padding: 20px;
+    	background-color: rgba(240, 240, 240, 0.4);
+    	width: 660px;
+    	position: relative;
+    	left: 155px;
+    	border-radius: 10px;
+	}
+
+	textarea {
+		height: 80px;
+		width: 620px;
+		border-radius: 5px;
+		margin-bottom: 10px;
+		padding: 20px;
+	}
+
+	.rounded-circle {
+		border-radius: 100%;
+		width: 50px;
+		height: 50px;
+		position: relative;
+		top: 40px;
+	}
+	
+	.fw-bold {
+		font-size: 20px;
+		position: relative;
+		top: -20px;
+		left: 60px;
+	}
+
+	.review-text {
+		position: relative;
+		left: 60px;
+		top: -20px;
+		width: 550px;
+	}
+
+	#btn {
+		border: 2px solid rgb(247, 98, 98);
+    	color: rgb(247, 98, 98);
+    	background: none;
+    	text-decoration: none;
+    	padding: 10px;
+	}
+
+	#btn:hover {
+		background: rgb(247, 98, 98);
+    	color: white;
+    	transition-duration: 1s;
+	}
+
+</style>
+
+<div id="menu" style="height: 100px;
+    width: 1700px;
+    position: relative;
+    top: -22px;
+    left: -20px;
+    background-color: rgb(247, 98, 98);
+    padding-top: 20px;">
+	<h1 id="l">uniLearn</h1>
+	<ul style="position: relative;
+    top: -50px;
+    left: 900px;
+    margin: 0px;
+    padding: 4px;">
+		<li><a class="a" href="{% url 'dadova:home' %}">Home</a></li>
+		<li><a class="a" href="{% url 'dadova:features' %}">Features</a></li>
+		<li><a class="a" href="{% url 'dadova:categories' %}">Courses</a></li>
+		<li><a class="a" href="{% url 'dadova:events' %}">Events</a></li>
+		{% if user.id != None %}
+			<li><a class="a" href="{% url 'dadova:cart' user.id %}">Cart</a></li>
+		{% endif %}
+		<li><a class="a" href="{% url 'dadova:register' %}">Sign Up</a></li>
+		<li><a class="a" href="{% url 'dadova:user_login' %}">Sign In</a></li>
+		{% if user.id != None %}
+			<li id="contact"><a class="a" href="{% url 'dadova:profile' user.id %}">{{ user.username}}</a></li>
+		{% endif %}
+	</ul>
+</div>
+
+<div id="content">
+
+	<h2>{{ course.title }}</h2><br>
+
+	<ul id="div-list">
+
+	<div class="course" style="display: inline-block; border: 2px solid rgb(247, 98, 98); position: relative; left: -850px; width: 700px; height: 500px; margin-right: 40px; margin-bottom: 20px;  border-radius: 10px;">
+		<img src="{{ course.img.url }}" style="border-radius: 10px; width: 700px; height: 500px;"><br>
+	</div>
+	
+	<p style="margin: 10px; font-size: 1.5em; position: relative; left: -860px; width: 720px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p> <br>
+	<p style="margin: 10px; font-size: 1.5em; position: relative; left: -860px; width: 720px;">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br>
+	<p style="margin: 10px; font-size: 1.5em; position: relative; left: -860px; width: 720px; margin-bottom: -300px">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+	</ul>
+
+	<div class="card mb-4" style="position: relative; top: -920px; left: 1000px; border: 2px solid rgb(247, 98, 98); width: 300px; height: 170px; border-radius: 10px;">
+        <div class="card-header" style="padding: 0.5rem 1rem; margin-bottom: 0; background-color: rgb(247, 98, 98); border-bottom: 1px solid rgb(247, 98, 98); position: relative; left: -1px; top: -2px; width: 270px; height: 30px; border-radius: 10px 10px 0 0; padding-top: 20px;"><p style="font-size: 1em; position: relative; top: -20px">Цена: {{ course.price }}<br> Длительность: {{ course.time }}</p>
+        </div>
+
+        <ul class="div-list1">
+       		{% if user.id != None %}
+       			<li class="dadova"><a class="card-body-a" href="{% url 'dadova:buy' course.id user.id %}">Buy Course</a></li>
+       		{% else %}
+       			<li class="dadova"><a class="card-body-a" href="{% url 'dadova:register' %}">Buy Course</a></li>
+       		{% endif %}
+
+       		{% if user.id != None %}
+       			<li class="dadova"><a class="card-body-a" href="{% url 'dadova:add_to_cart' course.id user.id %}">Add To Cart</a></li>
+       		{% else %}
+       			<li class="dadova"><a class="card-body-a" href="{% url 'dadova:register' %}">Add To Cart</a></li>
+       		{% endif %}
+       	</ul>
+       	
+    </div>
+
+    <div class="card mb-4" style="position: relative; top: -850px; left: 1000px; border: 2px solid rgb(247, 98, 98); width: 300px; border-radius: 10px;">
+        <div class="card-header" style="padding: 0.5rem 1rem; margin-bottom: 0; background-color: rgb(247, 98, 98); border-bottom: 1px solid rgb(247, 98, 98); position: relative; left: -1px; top: -2px; width: 270px; height: 30px; border-radius: 10px 10px 0 0; padding-top: 20px;"><p style="font-size: 1em; position: relative; top: -20px">Категории</p>
+        </div>
+
+        <ul class="div-list1">
+        {% for category in categories %}
+       		<li class="dadova"><a class="card-body-a" href="{% url 'dadova:courses' category.id %}">{{ category.name }}</a></li>
+        {% endfor %}
+    	</ul>
+    </div>
+
+    <section class="mb-5">
+        <div class="card bg-light">
+            <div class="card-body">
+                <!-- Comment form-->
+                {% if user.id != None %}
+                	<form class="mb-4" action="{% url 'dadova:leave_review' course.id user.id  %}" method="POST">
+                	
+                		{% csrf_token %}
+
+                		<textarea class="form-control" rows="3" placeholder="Join the discussion and leave a review!" name="text"></textarea><br>
+                		<button id="btn" type="submit">Leave Review</button>
+
+                	</form>
+                {% else %}
+                	<form class="mb-4" action="{% url 'dadova:register' %}" method="POST">
+                	
+                		{% csrf_token %}
+
+                		<textarea class="form-control" rows="3" placeholder="Join the discussion and leave a review!" name="text"></textarea><br>
+                		<button id="btn" type="submit">Leave Review</button>
+
+                	</form>
+                {% endif %}
+                    <!-- Single comment-->
+                {% for review in reviews %}
+                	<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+                    <div class="ms-3">
+                        <h1 class="fw-bold">{{ review.author }}</h1>
+                        <p class="review-text">{{ review.text }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+
+{% endblock %}

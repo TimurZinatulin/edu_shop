@@ -1,0 +1,178 @@
+{% extends 'dadova/base.html' %}
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block content %}
+
+<style type="text/css">
+	
+	.a {
+		color: rgb(255, 255, 255);
+		text-decoration: none;
+	}
+
+	.a:hover {
+		color: rgb(0, 0, 0);
+		transition-duration: 1s;
+	}
+
+	#h2 {
+		font-size: 2em;
+	}
+
+	.card-body-a {
+    	border: 2px solid rgb(247, 98, 98);
+    	color: rgb(247, 98, 98);
+    	background: none;
+    	text-decoration: none;
+    	padding: 10px;
+   		position: relative;
+    	left: 90px;
+    	top: 40px;
+	}
+
+	.card-body-a:hover {
+    	background: rgb(247, 98, 98);
+    	color: white;
+    	transition-duration: 1s;
+    	position: relative;
+	}
+
+	#div-list1 {
+		position: relative;
+		top: 2px;
+    	left: -60px;
+    	margin: 0px;
+    	height: 150px;
+	}
+
+	#div-list1 .dadova {
+		display: inline-block;
+    	margin-right: 5px;
+    	margin-bottom: 30px;
+    	padding-right: 10px;
+    	border: none;
+	}
+
+	.page-link {
+		color: rgb(247, 98, 98);
+		text-decoration: none;
+	}
+
+	.page-item {
+		border: 2px solid rgb(247, 98, 98);
+		padding: 10px;
+		margin: -2px;
+	}
+
+	.page-item:hover {
+		color: white;
+		background: rgb(247, 98, 98);
+		transition-duration: 1s;
+	}
+
+	.pagination {
+		position: relative;
+		top: 20px;
+		left: 690px;
+	}
+
+</style>
+
+	<div id="menu" style="height: 100px;
+    width: 1700px;
+    position: relative;
+    top: -22px;
+    left: -20px;
+    background-color: rgb(247, 98, 98);
+    padding-top: 20px;">
+	<h1 id="l">uniLearn</h1>
+	<ul style="position: relative;
+    top: -50px;
+    left: 900px;
+    margin: 0px;
+    padding: 4px;">
+		<li><a class="a" href="{% url 'dadova:home' %}">Home</a></li>
+		<li><a class="a" href="{% url 'dadova:features' %}">Features</a></li>
+		<li><a class="a" href="{% url 'dadova:categories' %}">Courses</a></li>
+		<li><a class="a" href="{% url 'dadova:events' %}">Events</a></li>
+		{% if user.id != None %}
+			<li><a class="a" href="{% url 'dadova:cart' user.id %}">Cart</a></li>
+		{% endif %}
+		<li><a class="a" href="{% url 'dadova:register' %}">Sign Up</a></li>
+		<li><a class="a" href="{% url 'dadova:user_login' %}">Sign In</a></li>
+		{% if user.id != None %}
+			<li id="contact"><a class="a" href="{% url 'dadova:profile' user.id %}">{{ user.username}}</a></li>
+		{% endif %}
+	</ul>
+</div>
+
+<div id="content" style="margin-bottom: 100px;">
+
+<h2 id="h2">{{ user.username }}</h2><br>
+
+<div class="card mb-4" style="position: relative; top: 40px; left: 100px; border: 2px solid rgb(247, 98, 98); width: 300px; height: 170px; border-radius: 10px;">
+    <div class="card-header" style="padding: 0.5rem 1rem; margin-bottom: 0; background-color: rgb(247, 98, 98); border-bottom: 1px solid rgb(247, 98, 98); position: relative; left: -1px; top: -2px; width: 270px; height: 30px; border-radius: 10px 10px 0 0; padding-top: 20px;"><p style="font-size: 1em; position: relative; top: -20px">Баланс:</p>
+    </div>
+    <div class="card-body" style="margin: 10px; height: 100px; position: relative; left: 40px;"><p style="color: rgb(247, 98, 98); font-size: 1.7em; position: relative; left: -20px">{{ balance.amount }} руб.</p></div>
+</div>
+
+<h2>Boughted Courses</h2>
+
+<ul id="div-list" style="margin-bottom: 100px;">
+	
+	{% for course in page_obj %}
+		
+		<div class="course" style="display: inline-block; border: 2px solid rgb(247, 98, 98); position: relative; left: -750px; width: 300px; height: 500px; margin-right: 40px; margin-bottom: 20px; border-radius: 10px;">
+
+			<img src="{{ course.img.url }}" style="border-radius: 10px 10px 0 0;"><br>
+			<p class="title" style="margin: 10px; font-size: 1em">{{ course.title }}</p>
+			<a class="view" href="{% url 'dadova:detail' course.id %}">View Course</a>
+			
+		</div>
+		
+
+	{% endfor %}
+
+</ul>
+
+<nav aria-label="Pagination">
+<ul class="pagination">
+                            
+{% if page_obj.has_previous %}
+    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true"><li class="page-item">Newer</li></a>
+{% endif %}
+
+{% if page_obj.has_other_pages %}
+
+    {% for p in page_obj.paginator.page_range %}
+
+        {% if page_obj.number == p %}
+
+        	<a class="page-link" href="?page={{ p }}"><li class="page-item active" style="color: white;
+		background: rgb(247, 98, 98);" aria-current="page">{{ p }}</li></a>
+
+        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                                
+            <a class="page-link" href="?page={{ p }}"><li class="page-item" aria-current="page">{{ p }}</li></a>
+
+        {% endif %}
+
+    {% endfor %}
+
+{% endif %}
+
+{% if page_obj.has_next %}
+	<a class="page-link" href="?page={{ page_obj.next_page_number }}"><li class="page-item">Older</li></a>
+{% endif %}
+                            
+</ul>
+</nav>
+
+</div>
+
+{% endblock %}

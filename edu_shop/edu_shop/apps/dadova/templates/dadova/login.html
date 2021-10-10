@@ -1,0 +1,90 @@
+{% extends 'dadova/base.html' %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+
+<style type="text/css">
+	
+	.a {
+		color: rgb(255, 255, 255);
+		text-decoration: none;
+	}
+
+	.a:hover {
+		color: rgb(0, 0, 0);
+		transition-duration: 1s;
+	}
+
+	#form {
+		border: 2px solid rgb(247, 98, 98);
+		max-width: 1000px;
+		position: relative;
+		left: 200px;
+		padding-left: 100px;
+	}
+
+	#h1 {
+		border: 2px solid rgb(247, 98, 98);
+		border-top: none;
+		width: 1058px;
+		position: relative;
+		left: -102px;
+		top: -22px;
+		background: rgb(247, 98, 98);
+		padding: 20px;
+	}
+
+	.input {
+		border: 2px solid rgb(247, 98, 98);
+		background: white;
+		padding: 20px;
+	}
+
+	.input:hover {
+		border: 2px solid rgb(247, 98, 98);
+		background: rgb(247, 98, 98);
+		padding: 20px;
+		color: white;
+		transition-duration: 1s;
+	}
+
+</style>
+
+	<div id="menu" style="height: 100px;
+    width: 1700px;
+    position: relative;
+    top: -22px;
+    left: -20px;
+    background-color: rgb(247, 98, 98);
+    padding-top: 20px;">
+	<h1 id="l">uniLearn</h1>
+	<ul style="position: relative;
+    top: -50px;
+    left: 900px;
+    margin: 0px;
+    padding: 4px;">
+		<li><a class="a" href="{% url 'dadova:home' %}">Home</a></li>
+		<li><a class="a" href="{% url 'dadova:features' %}">Features</a></li>
+		<li><a class="a" href="{% url 'dadova:categories' %}">Courses</a></li>
+		<li><a class="a" href="{% url 'dadova:events' %}">Events</a></li>
+		{% if user.id != None %}
+			<li><a class="a" href="{% url 'dadova:cart' user.id %}">Cart</a></li>
+		{% endif %}
+		<li><a class="a" href="{% url 'dadova:register' %}">Sign Up</a></li>
+		<li><a class="a" href="{% url 'dadova:user_login' %}">Sign In</a></li>
+		{% if user.id != None %}
+			<li id="contact"><a class="a" href="{% url 'dadova:profile' user.id %}">{{ user.username}}</a></li>
+		{% endif %}
+	</ul>
+</div>
+
+<div id="form">
+    <h1 id="h1">Log-in</h1>
+    <p>Please, use the following form to log-in:</p>
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <p><input class="input" type="submit" value="Log-in"></p>
+    </form>
+</div>
+
+{% endblock %}
